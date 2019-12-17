@@ -1,0 +1,70 @@
+{
+  "name": "mmf-blog-api-koa2-v2",
+  "version": "2.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon bin/www",
+    "serve": "./node_modules/.bin/nodemon bin/www",
+    "start": "node bin/www",
+    "pm2": "pm2 start bin/run",
+    "lint": "eslint --ext .js server/ --fix"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "baidu-aip-sdk": "^2.4.4",
+    "debug": "^4.1.1",
+    "ejs": "^2.7.1",
+    "highlight.js": "^9.16.2",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-convert": "^1.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-multer": "^1.0.2",
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.2.1",
+    "marked": "^0.7.0",
+    "md5": "^2.2.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.7",
+    "mongoose-autopopulate": "^0.9.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  },
+  "devDependencies": {
+    "eslint-config-lcy-js": "^3.0.9",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "nodemon": "^1.19.4",
+    "prettier": "^1.18.2",
+    "raven": "^2.6.4",
+    "should": "^13.2.3"
+  },
+  "engines": {
+    "node": ">= 8.6.0",
+    "npm": ">= 5.0.0"
+  },
+  "browserslist": [
+    "> 0.1%",
+    "last 3 versions",
+    "not ie <= 8",
+    "iOS > 8"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
