@@ -1,15 +1,27 @@
-const md5 = require('md5')
 const fs = require('fs')
+const md5 = require('md5')
+// JavaScript 日期处理类库
 const moment = require('moment')
+// 跨域认证解决方案
 const jwt = require('jsonwebtoken')
 
-const mongoose = require('../mongoose')
-const Admin = mongoose.model('Admin')
+// true 表示有读写权限
 const fsExistsSync = require('../utils').fsExistsSync
+
+const mongoose = require('../mongoose')
+// 管理员数据模型
+const Admin = mongoose.model('Admin')
+
+// 配置文件
 const config = require('../config')
+// 加密前缀
 const md5Pre = config.md5Pre
+// 盐
 const secret = config.secretServer
+
+// 常用的数据库操作
 const general = require('./general')
+// 解构赋值
 const { list, item, modify, deletes, recover } = general
 
 /**
@@ -45,6 +57,7 @@ exports.login = async ctx => {
         return
     }
     try {
+        console.log(username, password)
         const result = await Admin.findOneAsync({
             username,
             password: md5(md5Pre + password),
