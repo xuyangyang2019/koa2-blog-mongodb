@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon bin/www",
+    "debug": "nodemon --inspect bin/www",
     "serve": "./node_modules/.bin/nodemon bin/www",
     "start": "node bin/www",
     "pm2": "pm2 start bin/run",
