@@ -1,11 +1,14 @@
+const marked = require('marked')
 const moment = require('moment')
+const hljs = require('highlight.js')
+
 const mongoose = require('../mongoose')
-const Article = mongoose.model('Article')
-const Category = mongoose.model('Category')
 const general = require('./general')
 const { list, item } = general
-const marked = require('marked')
-const hljs = require('highlight.js')
+
+const Article = mongoose.model('Article')
+const Category = mongoose.model('Category')
+
 marked.setOptions({
     highlight(code) {
         return hljs.highlightAuto(code).value
