@@ -163,8 +163,8 @@ exports.insert = async ctx => {
         ctx.error(null, '请将表单填写完整')
     } else if (strlen(username) < 4) {
         ctx.error(null, '用户长度至少 2 个中文或 4 个英文')
-    } else if (strlen(password) < 8) {
-        ctx.error(null, '密码长度至少 8 位')
+    } else if (strlen(password) < 6) {
+        ctx.error(null, '密码长度至少 6 位')
     } else {
         try {
             const result = await User.findOneAsync({ username })
