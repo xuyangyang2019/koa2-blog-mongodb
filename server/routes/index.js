@@ -13,6 +13,7 @@ router.get('/backend', async ctx => {
     }
     await ctx.render('admin-add', {})
 })
+
 router.post('/backend', backendUser.insert)
 
 router.use('/api/backend', backend.routes(), backend.allowedMethods())
