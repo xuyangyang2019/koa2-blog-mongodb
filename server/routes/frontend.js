@@ -1,5 +1,6 @@
+// Router middleware for koa
 const router = require('koa-router')()
-
+// Multer is a node.js middleware for handling multipart/form-data for koa.
 const multer = require('koa-multer')
 
 const storage = multer.diskStorage({
@@ -11,17 +12,19 @@ const storage = multer.diskStorage({
         cb(null, 'shihua-' + Date.now() + '.' + ext)
     }
 })
+
 const upload = multer({ storage }).single('file')
 
 const cors = require('../middlewares/cors')
 
-const frontendArticle = require('../api/frontend-article')
-const frontendComment = require('../api/frontend-comment')
+const frontendProxy = require('../api/proxy')
 const frontendLike = require('../api/frontend-like')
 const frontendUser = require('../api/frontend-user')
-const frontendShihua = require('../api/frontend-shihua')
 const frontendWeiBo = require('../api/frontend-weibo')
-const frontendProxy = require('../api/proxy')
+const frontendShihua = require('../api/frontend-shihua')
+const frontendArticle = require('../api/frontend-article')
+const frontendComment = require('../api/frontend-comment')
+
 const isUser = require('../middlewares/user')
 
 // API
