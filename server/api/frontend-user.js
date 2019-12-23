@@ -1,7 +1,7 @@
 const md5 = require('md5')
+const axios = require('axios')
 const moment = require('moment')
 const jwt = require('jsonwebtoken')
-const axios = require('axios')
 
 const mongoose = require('../mongoose')
 const User = mongoose.model('User')
@@ -9,9 +9,12 @@ const User = mongoose.model('User')
 const config = require('../config')
 const md5Pre = config.md5Pre
 const secret = config.secretClient
+
 const mpappApiId = config.apiId
 const mpappSecret = config.secret
+
 const strlen = require('../utils').strlen
+
 const general = require('./general')
 const { list, modify, deletes, recover } = general
 
@@ -77,6 +80,7 @@ exports.jscode2session = async ctx => {
     })
     ctx.success(xhr.data, '登录成功')
 }
+
 /**
  * 微信登录
  * @method wxLogin
@@ -138,7 +142,7 @@ exports.wxLogin = async ctx => {
 }
 
 /**
- * 用户登录
+ * 用户退出登陆登录
  * @method logout
  * @param  {[type]}   ctx [description]
  * @return {[type]}       [description]

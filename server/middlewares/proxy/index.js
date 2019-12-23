@@ -1,5 +1,5 @@
 'use strict'
-
+// Node's querystring module for all engines.
 const querystring = require('querystring')
 const url_opera = require('url')
 const raven = require('raven')
