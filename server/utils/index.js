@@ -3,10 +3,10 @@ const fs = require('fs')
 // 同步地测试用户对 path 指定的文件或目录的权限
 const fsExistsSync = path => {
     try {
+        // console.log('可以读写')
         fs.accessSync(path, fs.F_OK)
-        console.log('可以读写')
     } catch (e) {
-        console.log('无权访问')
+        // console.log('无权访问')
         return false
     }
     return true
