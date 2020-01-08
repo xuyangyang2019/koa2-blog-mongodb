@@ -1,28 +1,25 @@
 const mongoose = require('../mongoose')
 const Article = mongoose.model('Article')
 
-// const marked = require('marked')
-// const hljs = require('highlight.js')
-// marked.setOptions({
-//     highlight(code) {
-//         return hljs.highlightAuto(code).value
-//     },
-//     breaks: true
-// })
-
 /**
  * 前台浏览时, 获取文章列表
- * @method
  * @param  {[type]} ctx [description]
- * @return {[type]}     [description]
+ * @return {Array}  []
  */
 exports.getList = async ctx => {
+    // console.log('获取文章列表')
+    // console.log(ctx.url)
+    // console.log(ctx.query)
     const { by, id, key } = ctx.query
     let { limit, page } = ctx.query
+    // 页
     page = parseInt(page, 10)
+    // number/page
     limit = parseInt(limit, 10)
+    // 默认第一页 10条数据
     if (!page) page = 1
     if (!limit) limit = 10
+
     const data = {
             is_delete: 0
         },
@@ -85,7 +82,6 @@ exports.getList = async ctx => {
  * @param  {[type]} ctx [description]
  * @return {[type]}     [description]
  */
-
 exports.getItem = async ctx => {
     const _id = ctx.query.id
     const user_id = ctx.cookies.get('userid') || ctx.header['userid']
@@ -108,7 +104,11 @@ exports.getItem = async ctx => {
     }
 }
 
+/**
+ * 获取热门文章
+ */
 exports.getTrending = async ctx => {
+    console.log('getTrending')
     const limit = 5
     const data = { is_delete: 0 }
     try {

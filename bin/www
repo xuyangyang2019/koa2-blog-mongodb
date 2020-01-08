@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
 var app = require('../app')
 var http = require('http')
 // A tiny JavaScript debugging utility modelled after Node.js core's debugging technique.
@@ -31,18 +27,11 @@ function normalizePort(val) {
  */
 /* eslint-disable no-use-before-define */
 var port = normalizePort(process.env.PORT || '4000')
-// app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+// Create HTTP server.
 var server = http.createServer(app.callback())
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-// server.listen(4000)
+// Listen on provided port, on all network interfaces.
 server.listen(port)
 
 server.on('error', onError)

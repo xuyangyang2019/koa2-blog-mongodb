@@ -31,6 +31,7 @@ exports.getItem = async ctx => {
     await item(ctx, Category)
 }
 
+// 添加分类
 exports.insert = async ctx => {
     const { cate_name, cate_order } = ctx.request.body
     if (!cate_name || !cate_order) {
@@ -52,14 +53,17 @@ exports.insert = async ctx => {
     }
 }
 
+// 删除分类
 exports.deletes = async ctx => {
     await deletes(ctx, Category)
 }
 
+// 更新分类
 exports.recover = async ctx => {
     await recover(ctx, Category)
 }
 
+// 更改分类
 exports.modify = async ctx => {
     const { id, cate_name, cate_order } = ctx.request.body
     const update_date = moment().format('YYYY-MM-DD HH:mm:ss')
