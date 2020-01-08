@@ -1,19 +1,7 @@
-const mongoose = require('../mongoose')
-const Schema = mongoose.Schema
-const Promise = require('bluebird')
+const db = require('../mongodb/db')
 
-const CategorySchema = new Schema({
+module.exports = db.defineModel('Category', {
     cate_name: String,
     cate_order: String,
-    cate_num: Number,
-    creat_date: String,
-    update_date: String,
-    is_delete: Number,
-    timestamp: Number
+    cate_num: Number
 })
-
-const Category = mongoose.model('Category', CategorySchema)
-Promise.promisifyAll(Category)
-Promise.promisifyAll(Category.prototype)
-
-module.exports = Category

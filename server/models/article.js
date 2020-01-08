@@ -1,8 +1,6 @@
-const mongoose = require('../mongoose')
-const Schema = mongoose.Schema
-const Promise = require('bluebird')
+const db = require('../mongodb/db')
 
-const ArticleSchema = new Schema({
+module.exports = db.defineModel('Article', {
     title: String,
     content: String,
     html: String,
@@ -11,15 +9,5 @@ const ArticleSchema = new Schema({
     visit: Number,
     like: Number,
     comment_count: Number,
-    creat_date: String,
-    update_date: String,
-    is_delete: Number,
-    timestamp: Number,
     likes: [String]
 })
-
-const Article = mongoose.model('Article', ArticleSchema)
-Promise.promisifyAll(Article)
-Promise.promisifyAll(Article.prototype)
-
-module.exports = Article
