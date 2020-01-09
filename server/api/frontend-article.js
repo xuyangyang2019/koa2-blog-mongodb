@@ -1,5 +1,5 @@
-const mongoose = require('../mongoose')
-const Article = mongoose.model('Article')
+const model = require('../mongodb/model')
+const Article = model.Article
 
 /**
  * 前台浏览时, 获取文章列表

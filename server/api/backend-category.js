@@ -1,6 +1,7 @@
 const moment = require('moment')
-const mongoose = require('../mongoose')
-const Category = mongoose.model('Category')
+const model = require('../mongodb/model')
+const Category = model.Category
+
 const general = require('./general')
 
 const item = general.item

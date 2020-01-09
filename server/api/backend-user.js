@@ -8,9 +8,9 @@ const jwt = require('jsonwebtoken')
 // true 表示有读写权限
 const fsExistsSync = require('../utils').fsExistsSync
 
-const mongoose = require('../mongoose')
+const model = require('../mongodb/model')
 // 管理员数据模型
-const Admin = mongoose.model('Admin')
+const Admin = model.Admin
 
 // 配置文件
 const config = require('../config')

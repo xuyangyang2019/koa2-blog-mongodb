@@ -1,5 +1,5 @@
-const mongoose = require('../mongoose')
-const Article = mongoose.model('Article')
+const model = require('../mongodb/model')
+const Article = model.Article
 
 exports.like = async ctx => {
     const article_id = ctx.query.id

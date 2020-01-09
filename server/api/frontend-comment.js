@@ -1,8 +1,8 @@
 const moment = require('moment')
 
-const mongoose = require('../mongoose')
-const Comment = mongoose.model('Comment')
-const Article = mongoose.model('Article')
+const model = require('../mongodb/model')
+const Comment = model.Comment
+const Article = model.Article
 
 /**
  * 发布评论

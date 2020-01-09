@@ -4,8 +4,8 @@ const AipImageClassifyClient = require('baidu-aip-sdk').imageClassify
 const config = require('../config/shihua')
 const check = require('../middlewares/check')
 
-const mongoose = require('../mongoose')
-const Shihua = mongoose.model('Shihua')
+const model = require('../mongodb/model')
+const Shihua = model.Shihua
 
 exports.upload = async ctx => {
     if (ctx.req.file) {

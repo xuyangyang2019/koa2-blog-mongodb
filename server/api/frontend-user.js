@@ -3,8 +3,8 @@ const axios = require('axios')
 const moment = require('moment')
 const jwt = require('jsonwebtoken')
 
-const mongoose = require('../mongoose')
-const User = mongoose.model('User')
+const model = require('../mongodb/model')
+const User = model.User
 
 const config = require('../config')
 const md5Pre = config.md5Pre
