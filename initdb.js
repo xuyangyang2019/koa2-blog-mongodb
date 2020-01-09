@@ -54,11 +54,13 @@ const config = require('./server/config')
 // 加密前缀
 const md5Pre = config.md5Pre
 
-const Admin = require('./server/models/admin')
+const model = require('./server/mongodb/model')
+// const Admin = require('./server/models/admin')
+const Admin = model.Admin
 
 const admin1 = new Admin({
-    username: 'xyy',
-    email: 'xyy@163.com',
+    username: 'xyy163',
+    email: 'xyy163@163.com',
     password: md5(md5Pre + '123456'),
     creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
     update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
