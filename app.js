@@ -33,12 +33,13 @@ const moment = require('moment')
 // const proxy = require('./server/middlewares/proxy')
 
 // 引入 mongoose 相关模型
-require('./server/models/admin')
-require('./server/models/article')
-require('./server/models/category')
-require('./server/models/comment')
-require('./server/models/user')
-require('./server/models/shihua')
+// require('./server/models/Admin')
+// require('./server/models/Article')
+// require('./server/models/Category')
+// require('./server/models/Comment')
+// require('./server/models/User')
+// require('./server/models/Shihua')
+require('./server/mongodb/model')
 
 const index = require('./server/routes/index')
 
