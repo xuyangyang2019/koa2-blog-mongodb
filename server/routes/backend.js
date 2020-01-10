@@ -1,9 +1,11 @@
 const router = require('koa-router')()
-const backendArticle = require('../api/backend-article')
-const backendCategory = require('../api/backend-category')
-const backendUser = require('../api/backend-user')
-const frontendComment = require('../api/frontend-comment')
-const frontendUser = require('../api/frontend-user')
+
+const backendArticle = require('../api/backendArticle')
+const backendCategory = require('../api/backendCategory')
+const backendUser = require('../api/backendUser')
+const frontendComment = require('../api/frontendComment')
+const frontendUser = require('../api/frontendUser')
+
 const isAdmin = require('../middlewares/admin')
 
 // API
@@ -21,6 +23,7 @@ router.get('/article/delete', isAdmin, backendArticle.deletes)
 router.get('/article/recover', isAdmin, backendArticle.recover)
 // 管理时, 编辑文章
 router.post('/article/modify', isAdmin, backendArticle.modify)
+
 // ------- 分类 -------
 // 管理时, 获取分类列表
 router.get('/category/list', backendCategory.getList)
@@ -34,6 +37,7 @@ router.get('/category/delete', isAdmin, backendCategory.deletes)
 router.get('/category/recover', isAdmin, backendCategory.recover)
 // 管理时, 编辑分类
 router.post('/category/modify', isAdmin, backendCategory.modify)
+
 // ------- 管理 -------
 // 后台登录
 router.post('/admin/login', backendUser.login)
@@ -58,6 +62,7 @@ router.post('/user/modify', isAdmin, frontendUser.modify)
 router.get('/user/delete', isAdmin, frontendUser.deletes)
 // 恢复用户
 router.get('/user/recover', isAdmin, frontendUser.recover)
+
 // ------ 评论 ------
 // 删除评论
 router.get('/comment/delete', isAdmin, frontendComment.deletes)

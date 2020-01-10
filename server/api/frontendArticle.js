@@ -7,9 +7,7 @@ const Article = model.Article
  * @return {Array}  []
  */
 exports.getList = async ctx => {
-    // console.log('获取文章列表')
-    // console.log(ctx.url)
-    // console.log(ctx.query)
+    console.log('getList')
     const { by, id, key } = ctx.query
     let { limit, page } = ctx.query
     // 页

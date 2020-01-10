@@ -6,7 +6,7 @@ const backend = require('./backend')
 const frontend = require('./frontend')
 
 // 管理员
-const backendUser = require('../api/backend-user')
+const backendUser = require('../api/backendUser')
 
 // 添加管理员
 router.get('/backend', async ctx => {
@@ -16,6 +16,7 @@ router.get('/backend', async ctx => {
     }
     await ctx.render('admin-add', {})
 })
+
 //
 router.post('/backend', backendUser.insert)
 
