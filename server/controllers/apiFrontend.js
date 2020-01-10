@@ -16,12 +16,17 @@ module.exports = {
     },
     // 前台浏览时, 获取单篇文章
     'GET /api/frontend/article/item': async ctx => {
-        await frontendArticle.getItem(ctx)
+        ctx.rest({
+            list: await frontendArticle.getItem(ctx)
+        })
     },
     // 前台浏览时, 热门文章
     'GET /api/frontend/trending': async ctx => {
-        await frontendArticle.getTrending(ctx)
+        ctx.rest({
+            list: await frontendArticle.getTrending(ctx)
+        })
     },
+
     // 发布评论
     'POST /api/frontend/comment/insert': async ctx => {
         console.log('前台浏览时, 获取文章列表')
