@@ -20,6 +20,8 @@ const Promise = require('bluebird')
 // const mongoUrl = process.env.NODE_ENV === 'docker-development' ? 'dockerized_mongo' : 'localhost'
 mongoose.connect(`mongodb://localhost/mdb`, { useNewUrlParser: true, useUnifiedTopology: true })
 
+// mongoose.Promise = global.Promise
+
 // 类型
 // const ID_TYPE = Sequelize.STRING(50)
 
