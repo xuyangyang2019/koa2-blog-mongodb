@@ -1,6 +1,7 @@
 // 扫描注册Controller
 // 文件系统模块
 const fs = require('fs')
+const router = require('koa-router')()
 
 /**
  * 绑定路由
@@ -57,7 +58,7 @@ module.exports = {
     generateRouter: dir_path => {
         // 如果不传参数，扫描目录默认为'controllers'
         const controllers_path = dir_path || 'controllers'
-        const router = require('koa-router')()
+        // const router = require('koa-router')()
         addControllers(router, controllers_path)
         return router.routes()
     },
