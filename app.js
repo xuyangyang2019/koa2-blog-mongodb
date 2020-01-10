@@ -9,7 +9,10 @@ const views = require('koa-views')
 const logger = require('koa-logger')
 
 // 处理URL的middleware，它根据不同的URL调用不同的处理函数
-const router = require('koa-router')()
+// const router = require('koa-router')()
+const controller = require('./server/middleware/controller')
+
+const rest = require('./server/middleware/rest')
 
 // 解析body 的中间件，用以接受post 过来的表单，json数据，或者上传的文件流
 // 把koa2上下文的formData数据解析到ctx.request.body的中间件
@@ -33,15 +36,9 @@ const moment = require('moment')
 // const proxy = require('./server/middlewares/proxy')
 
 // 引入 mongoose 相关模型
-// require('./server/models/Admin')
-// require('./server/models/Article')
-// require('./server/models/Category')
-// require('./server/models/Comment')
-// require('./server/models/User')
-// require('./server/models/Shihua')
 require('./server/mongodb/model')
 
-const index = require('./server/routes/index')
+// const index = require('./server/routes/index')
 
 // ===========================================================================
 
@@ -89,12 +86,15 @@ app.use(bodyParser)
 app.use(views(path.join(__dirname, 'views'), { extension: 'ejs' }))
 
 // 返回封装
-app.use(require('./server/middlewares/return'))
+// app.use(require('./server/middlewares/return'))
+app.use(rest.restify())
 
 // app.use(proxy(app))
 
 // 路由中间件
-app.use(index.routes(), router.allowedMethods())
+// app.use(index.routes(), router.allowedMethods())
+app.use(controller.generateRouter(path.join(__dirname, 'server/controllers')))
+app.use(controller.allowedMethods())
 
 // 服务器报错
 app.on('error', function(err, ctx) {
