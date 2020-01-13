@@ -29,4 +29,13 @@ router.get('*', async ctx => {
     ctx.body = '404 Not Found'
 })
 
-module.exports = router
+// module.exports = router
+
+module.exports = {
+    routes() {
+        return router.routes()
+    },
+    allowedMethods() {
+        return router.allowedMethods()
+    }
+}

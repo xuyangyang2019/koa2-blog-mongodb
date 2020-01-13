@@ -10,7 +10,8 @@ const logger = require('koa-logger')
 
 // 处理URL的middleware，它根据不同的URL调用不同的处理函数
 // const router = require('koa-router')()
-const controller = require('./server/middleware/controller')
+const router = require('./server/routes/index')
+// const controller = require('./server/middleware/controller')
 
 // const rest = require('./server/middleware/rest')
 
@@ -37,8 +38,6 @@ const moment = require('moment')
 
 // 引入 mongoose 相关模型
 require('./server/mongodb/model')
-
-// const index = require('./server/routes/index')
 
 // ===========================================================================
 
@@ -93,8 +92,10 @@ app.use(require('./server/middlewares/return'))
 
 // 路由中间件
 // app.use(index.routes(), router.allowedMethods())
-app.use(controller.generateRouter(path.join(__dirname, 'server/controllers')))
-app.use(controller.allowedMethods())
+app.use(router.routes(), router.allowedMethods())
+
+// app.use(controller.generateRouter(path.join(__dirname, 'server/controllers')))
+// app.use(controller.allowedMethods())
 
 // 服务器报错
 app.on('error', function(err, ctx) {
