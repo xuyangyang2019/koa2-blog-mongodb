@@ -5,83 +5,123 @@ const frontendComment = require('../service/frontendComment')
 const frontendLike = require('../service/frontendLike')
 const frontendUser = require('../service/frontendUser')
 
-const isUser = require('../middlewares/user')
+// const isUser = require('../middlewares/user')
 
 module.exports = {
     // 前台浏览时, 获取文章列表
     'GET /api/frontend/article/list': async ctx => {
-        ctx.rest({
-            list: await frontendArticle.getList(ctx)
-        })
+        await frontendArticle.getList(ctx)
+        // ctx.rest({
+        //     list: await frontendArticle.getList(ctx)
+        // })
     },
     // 前台浏览时, 获取单篇文章
     'GET /api/frontend/article/item': async ctx => {
-        ctx.rest({
-            list: await frontendArticle.getItem(ctx)
-        })
+        await frontendArticle.getItem(ctx)
+        // ctx.rest({
+        //     list: await frontendArticle.getItem(ctx)
+        // })
     },
     // 前台浏览时, 热门文章
     'GET /api/frontend/trending': async ctx => {
-        ctx.rest({
-            list: await frontendArticle.getTrending(ctx)
-        })
+        await frontendArticle.getTrending(ctx)
+        // ctx.rest({
+        //     list: await frontendArticle.getTrending(ctx)
+        // })
     },
 
     // 发布评论
     'POST /api/frontend/comment/insert': async ctx => {
-        console.log('前台浏览时, 获取文章列表')
         await frontendComment.insert(ctx)
+        // ctx.rest({
+        //     list: await frontendComment.insert(ctx)
+        // })
     },
     // 读取评论列表
     'GET /api/frontend/comment/list': async ctx => {
         await frontendComment.getList(ctx)
+        // ctx.rest({
+        //     list: await frontendComment.getList(ctx)
+        // })
     },
     // 喜欢
     'GET /api/frontend/like': async ctx => {
-        console.log('前台浏览时, 获取文章列表')
         await frontendLike.like(ctx)
+        // ctx.rest({
+        //     list: await frontendLike.like(ctx)
+        // })
     },
     // 取消喜欢
     'GET /api/frontend/unlike': async ctx => {
         await frontendLike.unlike(ctx)
+        // ctx.rest({
+        //     list: await frontendLike.unlike(ctx)
+        // })
     },
     // 重置喜欢
     'GET /api/frontend/reset/like': async ctx => {
         await frontendLike.resetLike(ctx)
+        // ctx.rest({
+        //     list: await frontendLike.resetLike(ctx)
+        // })
     },
     // 前台注册
     'POST /api/frontend/user/insert': async ctx => {
         await frontendUser.insert(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.insert(ctx)
+        // })
     },
     // 前台登录
     'POST /api/frontend/user/login': async ctx => {
         await frontendUser.login(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.login(ctx)
+        // })
     },
     // 微信登录
     'POST /api/frontend/user/jscode2session': async ctx => {
         await frontendUser.jscode2session(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.jscode2session(ctx)
+        // })
     },
     'POST /api/frontend/user/wxLogin': async ctx => {
         await frontendUser.wxLogin(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.wxLogin(ctx)
+        // })
     },
     // 前台退出
     'POST /api/frontend/user/logout': async ctx => {
         await frontendUser.logout(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.logout(ctx)
+        // })
     },
     // 前台账号读取
     'GET /api/frontend/user/account': async ctx => {
         isUser
         await frontendUser.getItem(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.getItem(ctx)
+        // })
     },
     // 前台账号修改
     'POST /api/frontend/user/account': async ctx => {
         isUser
         await frontendUser.account(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.account(ctx)
+        // })
     },
     // 前台密码修改
     'POST /api/frontend/password': async ctx => {
         isUser
         await frontendUser.password(ctx)
+        // ctx.rest({
+        //     list: await frontendUser.password(ctx)
+        // })
     }
     // // 获取
     // 'GET /api/products': async (ctx, next) => {
