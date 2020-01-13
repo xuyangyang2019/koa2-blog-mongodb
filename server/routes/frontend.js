@@ -18,10 +18,10 @@ const router = require('koa-router')()
 // const cors = require('../middlewares/cors')
 
 // const frontendProxy = require('../api/proxy')
-const frontendLike = require('../api/frontendLike')
-const frontendUser = require('../api/frontendUser')
 // const frontendWeiBo = require('../api/frontend-weibo')
 // const frontendShihua = require('../api/frontend-shihua')
+const frontendLike = require('../api/frontendLike')
+const frontendUser = require('../api/frontendUser')
 const frontendArticle = require('../api/frontendArticle')
 const frontendComment = require('../api/frontendComment')
 
