@@ -1,6 +1,7 @@
 const moment = require('moment')
 
 const model = require('../mongodb/model')
+
 const Comment = model.Comment
 const Article = model.Article
 

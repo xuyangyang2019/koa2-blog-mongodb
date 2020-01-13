@@ -6,23 +6,20 @@ module.exports = {
      * 获取文章列表
      */
     getList: async ctx => {
-        // console.log(ctx.originalUrl)
-        // console.log(ctx.query)
-        // const msg = ctx.query || {} // 前端请求的参数
-        // const page = Number(msg.page) || 1 // 传入的页数
-        // const pageSize = Number(msg.pageSize) || 10 // 每页的数据
-
         const { by, id, key } = ctx.query
         let { limit, page } = ctx.query
+        // 页
         page = parseInt(page, 10)
+        // number/page
         limit = parseInt(limit, 10)
         // 默认第一页 10条数据
         if (!page) page = 1
         if (!limit) limit = 10
+
         const data = {
-            is_delete: 0
-        }
-        const skip = (page - 1) * limit
+                is_delete: 0
+            },
+            skip = (page - 1) * limit
         if (id) {
             data.category = id
         }
@@ -34,41 +31,46 @@ module.exports = {
         if (by) {
             sort = '-' + by
         }
-        const [list, total] = await Promise.all([
-            Article.find(data)
-                .sort(sort)
-                .skip(skip)
-                .limit(limit)
-                .exec(),
-            Article.countDocumentsAsync(data)
-        ])
-        const totalPage = Math.ceil(total / limit)
-        const user_id = ctx.cookies.get('userid') || ctx.header['userid']
-        const tmpData = {
-            total,
-            hasNext: totalPage > page ? 1 : 0,
-            hasPrev: page > 1
+
+        try {
+            const [list, total] = await Promise.all([
+                Article.find(data)
+                    .sort(sort)
+                    .skip(skip)
+                    .limit(limit)
+                    .exec(),
+                Article.countDocumentsAsync(data)
+            ])
+            const totalPage = Math.ceil(total / limit)
+            const user_id = ctx.cookies.get('userid') || ctx.header['userid']
+            const tmpData = {
+                total,
+                hasNext: totalPage > page ? 1 : 0,
+                hasPrev: page > 1
+            }
+            if (user_id) {
+                const lists = list.map(item => {
+                    item.content = item.content.substring(0, 500) + '...'
+                    item._doc.like_status = item.likes.indexOf(user_id) > -1
+                    item.likes = []
+                    return item
+                })
+                tmpData.list = lists
+                ctx.success(tmpData)
+            } else {
+                const lists = list.map(item => {
+                    item.content = item.content.substring(0, 500) + '...'
+                    item._doc.like_status = false
+                    item.likes = []
+                    return item
+                })
+                tmpData.list = lists
+                ctx.success(tmpData)
+            }
+        } catch (err) {
+            ctx.error(null, err.toString())
         }
-        if (user_id) {
-            const lists = list.map(item => {
-                item.content = item.content.substring(0, 500) + '...'
-                item._doc.like_status = item.likes.indexOf(user_id) > -1
-                item.likes = []
-                return item
-            })
-            tmpData.list = lists
-            // ctx.success(tmpData)
-        } else {
-            const lists = list.map(item => {
-                item.content = item.content.substring(0, 500) + '...'
-                item._doc.like_status = false
-                item.likes = []
-                return item
-            })
-            tmpData.list = lists
-            // ctx.success(tmpData)
-        }
-        return tmpData
+        // return tmpData
 
         // Article.find({}).then(r => {
         //     console.log(r)
@@ -87,32 +89,44 @@ module.exports = {
         const _id = ctx.query.id
         const user_id = ctx.cookies.get('userid') || ctx.header['userid']
         if (!_id) {
-            // ctx.error(null, '参数错误')
-            throw new APIError('notfound', 'Todo not found by id: ' + ctx.params.id)
+            ctx.error(null, '参数错误')
             return
         }
-        const [article] = await Promise.all([Article.findOneAsync({ _id, is_delete: 0 }), Article.updateOneAsync({ _id }, { $inc: { visit: 1 } })])
-        if (!article) {
-            // ctx.error(null, '没有找到该文章')
-            throw new APIError('notfound', 'Todo not found by id: ' + ctx.params.id)
-        } else {
-            if (user_id) article._doc.like_status = article.likes.indexOf(user_id) > -1
-            else article._doc.like_status = false
-            article.likes = []
-            return article
+        try {
+            const [article] = await Promise.all([
+                Article.findOneAsync({ _id, is_delete: 0 }),
+                Article.updateOneAsync({ _id }, { $inc: { visit: 1 } })
+            ])
+            if (!article) {
+                ctx.error(null, '没有找到该文章')
+            } else {
+                if (user_id) article._doc.like_status = article.likes.indexOf(user_id) > -1
+                else article._doc.like_status = false
+                article.likes = []
+                ctx.success(article)
+            }
+        } catch (err) {
+            ctx.error(null, err.toString())
         }
     },
     /**
      * 获取热门文章
      */
     getTrending: async ctx => {
-        console.log(ctx.query)
         const limit = 5
         const data = { is_delete: 0 }
-        const result = await Article.find(data)
-            .sort('-visit')
-            .limit(limit)
-            .exec()
-        return result
+        try {
+            const result = await Article.find(data)
+                .sort('-visit')
+                .limit(limit)
+                .exec()
+            console.log(result)
+            ctx.success({
+                list: result
+            })
+        } catch (err) {
+            ctx.error(null, err.toString())
+        }
+        // return result
     }
 }
