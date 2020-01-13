@@ -12,7 +12,7 @@ const logger = require('koa-logger')
 // const router = require('koa-router')()
 const controller = require('./server/middleware/controller')
 
-const rest = require('./server/middleware/rest')
+// const rest = require('./server/middleware/rest')
 
 // 解析body 的中间件，用以接受post 过来的表单，json数据，或者上传的文件流
 // 把koa2上下文的formData数据解析到ctx.request.body的中间件
@@ -86,8 +86,8 @@ app.use(bodyParser)
 app.use(views(path.join(__dirname, 'views'), { extension: 'ejs' }))
 
 // 返回封装
-// app.use(require('./server/middlewares/return'))
-app.use(rest.restify())
+app.use(require('./server/middlewares/return'))
+// app.use(rest.restify())
 
 // app.use(proxy(app))
 
