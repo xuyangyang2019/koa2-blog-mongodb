@@ -5,7 +5,7 @@ const frontendComment = require('../service/frontendComment')
 const frontendLike = require('../service/frontendLike')
 const frontendUser = require('../service/frontendUser')
 
-// const isUser = require('../middlewares/user')
+const isUser = require('../middlewares/user')
 
 module.exports = {
     // 前台浏览时, 获取文章列表
@@ -46,6 +46,7 @@ module.exports = {
     },
     // 喜欢
     'GET /api/frontend/like': async ctx => {
+        isUser
         await frontendLike.like(ctx)
         // ctx.rest({
         //     list: await frontendLike.like(ctx)
@@ -53,6 +54,7 @@ module.exports = {
     },
     // 取消喜欢
     'GET /api/frontend/unlike': async ctx => {
+        isUser
         await frontendLike.unlike(ctx)
         // ctx.rest({
         //     list: await frontendLike.unlike(ctx)
@@ -60,6 +62,7 @@ module.exports = {
     },
     // 重置喜欢
     'GET /api/frontend/reset/like': async ctx => {
+        isUser
         await frontendLike.resetLike(ctx)
         // ctx.rest({
         //     list: await frontendLike.resetLike(ctx)

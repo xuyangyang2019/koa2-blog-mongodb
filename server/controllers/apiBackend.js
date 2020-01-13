@@ -7,10 +7,13 @@ const backendUser = require('../service/backendUser')
 const frontendUser = require('../service/frontendUser')
 const frontendComment = require('../service/frontendComment')
 
+const isAdmin = require('../middlewares/admin')
+
 module.exports = {
     // ------- 文章 -------
     // 管理时, 获取文章列表
     'GET /api/backend/article/list': async ctx => {
+        isAdmin
         await backendArticle.getList(ctx)
         // ctx.rest({
         //     list: await backendArticle.getList(ctx)
