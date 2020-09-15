@@ -1,2 +1,6 @@
-build/*.js
-server/config/secret.js
+node_modules
+dist/
+test
+build/
+src/assets/*
+public/*
