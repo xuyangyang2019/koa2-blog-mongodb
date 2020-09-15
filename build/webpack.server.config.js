@@ -5,18 +5,19 @@
 // const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const base = require('./webpack.base.config')()
+// const base = require('./webpack.base.config')()
+const base = require('./webpack.base.config')
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 // const nodeExternals = require('webpack-node-externals')
-// const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = merge(base, {
     // 指定生成后的运行环境在node
     target: 'node',
-    // mode: isProd ? 'production' : 'development',
+    mode: isProd ? 'production' : 'development',
     // 配置编译的入口文件
     // entry: path.join(process.cwd(), 'client/entry-server.js'),
-    entry: '/src/serve-entry.js',
+    entry: './src/serve-entry.js',
     // 设置输出文件名，并设置模块导出为commonjs2类型
     output: {
         filename: 'server-bundle.js',

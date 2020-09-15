@@ -5,6 +5,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
+
 // const appConfig = require('./../app.config')
 // const webpack = require('webpack')
 // const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
@@ -36,7 +37,8 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                use: ['vue-loader', 'eslint-loader']
+                use: ['vue-loader']
+                // use: ['vue-loader', 'eslint-loader']
             },
             // js,jsx 转译
             {
@@ -44,57 +46,58 @@ module.exports = {
                 use: ['babel-loader'],
                 exclude: /node_modules/,
             },
-            {
-                test: /\.css$/,
-                use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader']
-            },
-            {
-                test: /\.(styl|stylus)$/,
-                use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
-                {
-                    loader: 'stylus-loader',
-                    options: isProd ? {} : { sourceMap: 'inline' }
-                }
-                ]
-            },
-            {
-                test: /\.scss$/,
-                use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
-                {
-                    loader: 'sass-loader',
-                    options: isProd ? {} : { sourceMap: 'inline' }
-                }
-                ]
-            },
+            // {
+            //     test: /\.css$/,
+            //     use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader']
+            // },
+            // {
+            //     test: /\.(styl|stylus)$/,
+            //     use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
+            //     {
+            //         loader: 'stylus-loader',
+            //         options: isProd ? {} : { sourceMap: 'inline' }
+            //     }
+            //     ]
+            // },
+            // {
+            //     test: /\.scss$/,
+            //     use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
+            //     {
+            //         loader: 'sass-loader',
+            //         options: isProd ? {} : { sourceMap: 'inline' }
+            //     }
+            //     ]
+            // },
             {
                 test: /\.json$/,
                 use: 'json-loader',
             },
             // 图片资源 gif|jpg|jpeg|png|bmp|svg|ico
-            {
-                test: /\.(gif|jpg|jpeg|png|bmp|svg|ico)(\?.*)?$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 1,
-                        name: 'assets/images/[name].[hash:8].[ext]',
-                    },
-                }],
-            },
+            // {
+            //     test: /\.(gif|jpg|jpeg|png|bmp|svg|ico)(\?.*)?$/,
+            //     use: [{
+            //         loader: 'url-loader',
+            //         options: {
+            //             limit: 1,
+            //             name: 'assets/images/[name].[hash:8].[ext]',
+            //         },
+            //     }],
+            // },
             // 字体文件 woff|woff2|eot|ttf
-            {
-                test: /\.(woff|woff2|eot|ttf)(\?.*)?$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        // 小于8912字节的文件,返回dataurl
-                        limit: 8912,
-                        // 生成的文件名,[name]为原始文件名,[hash:8]为根据文件内容生成8位md5值,[ext]为原始文件扩展名
-                        name: 'assets/font/[name].[hash:8].[ext]',
-                    },
-                }],
-            },
-        ].concat(appConfig.webpack.rules || []),
+            // {
+            //     test: /\.(woff|woff2|eot|ttf)(\?.*)?$/,
+            //     use: [{
+            //         loader: 'url-loader',
+            //         options: {
+            //             // 小于8912字节的文件,返回dataurl
+            //             limit: 8912,
+            //             // 生成的文件名,[name]为原始文件名,[hash:8]为根据文件内容生成8位md5值,[ext]为原始文件扩展名
+            //             name: 'assets/font/[name].[hash:8].[ext]',
+            //         },
+            //     }],
+            // },
+        ]
+        // .concat(appConfig.webpack.rules || []),
     },
     plugins: [
         // 由于mac不区分大小写，linux区分大小写，可能导致mac上正常，在部署时出错，所以强制区分大小写
@@ -105,7 +108,7 @@ module.exports = {
             // appVersion,
             // favicon,
             // filename: 'index.html',
-            template: '/src/index-template.html',
+            template: './src/index-template.html',
             // inject: !isProd,
         }),
         // new FriendlyErrorsPlugin(),

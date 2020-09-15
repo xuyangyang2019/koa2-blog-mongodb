@@ -55,12 +55,15 @@ function render(ctx) {
             }
             console.log(html)
             ctx.body = html
-            resolve
+            resolve()
         })
     })
 }
 
 app.use(serve(__dirname, '/dist'))
+
 router.get('*', render)
-app.user(router.routes()).use(router.allowedMethods())
+app.use(router.routes()).use(router.allowedMethods())
 app.listen(3000)
+
+console.log('start server: localhost:3000')
