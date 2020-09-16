@@ -10,7 +10,6 @@ const logger = Koa_Logger((str) => {
 })
 // 路由中间件
 const KoaRouter = require('koa-router')
-const serve = require('koa-static')
 const { createBundleRenderer } = require('vue-server-renderer')
 
 const resolve = file => path.resolve(__dirname, file)
@@ -66,8 +65,19 @@ function render(ctx) {
     })
 }
 
+
 app.use(logger)
-app.use(serve(__dirname, '/dist'))
+
+// 生产环境下，静态文件是由部署在最前面的反向代理服务器（如Nginx）处理的，Node程序不需要处理静态文件。
+// 而在开发环境下，我们希望koa能顺带处理静态文件，否则，就必须手动配置一个反向代理服务器，这样会导致开发环境非常复杂。
+if (process.env.NODE_ENV === 'development') {
+    const serve = require('koa-static')
+    app.use(serve(__dirname, '/dist'))
+    // 原生实现
+    // let staticFiles = require('./middlewares/static-files');
+    // app.use(staticFiles('/static/', __dirname + '/static'));
+    // app.use(staticFiles('/dist/', __dirname + '/dist'));
+}
 
 router.get('*', render)
 app.use(router.routes()).use(router.allowedMethods())
