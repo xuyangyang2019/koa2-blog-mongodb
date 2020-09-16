@@ -8,6 +8,8 @@ const Moment = require("moment");
 const logger = Koa_Logger((str) => {
     console.log(Moment().format('YYYY-MM-DD HH:mm:ss') + str)
 })
+// 解析POST请求
+const bodyParser = require('koa-bodyparser');
 // 路由中间件
 const KoaRouter = require('koa-router')
 const { createBundleRenderer } = require('vue-server-renderer')
@@ -65,7 +67,6 @@ function render(ctx) {
     })
 }
 
-
 app.use(logger)
 
 // 生产环境下，静态文件是由部署在最前面的反向代理服务器（如Nginx）处理的，Node程序不需要处理静态文件。
@@ -78,6 +79,9 @@ if (process.env.NODE_ENV === 'development') {
     // app.use(staticFiles('/static/', __dirname + '/static'));
     // app.use(staticFiles('/dist/', __dirname + '/dist'));
 }
+
+// 使用ctx.body解析中间件
+app.use(bodyParser())
 
 router.get('*', render)
 app.use(router.routes()).use(router.allowedMethods())
