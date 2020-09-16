@@ -53,7 +53,7 @@ function render(ctx) {
             if (err) {
                 return handleError(err)
             }
-            console.log(html)
+            // console.log(html)
             ctx.body = html
             resolve()
         })
