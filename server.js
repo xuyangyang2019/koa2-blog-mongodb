@@ -1,6 +1,14 @@
 const fs = require('fs')
 const path = require('path')
+// 导入koa
 const Koa = require('koa')
+// 日志中间件
+const Koa_Logger = require('koa-logger')
+const Moment = require("moment");
+const logger = Koa_Logger((str) => {
+    console.log(Moment().format('YYYY-MM-DD HH:mm:ss') + str)
+})
+// 路由中间件
 const KoaRouter = require('koa-router')
 const serve = require('koa-static')
 const { createBundleRenderer } = require('vue-server-renderer')
@@ -47,8 +55,6 @@ function render(ctx) {
             url: ctx.url
         }
 
-        console.log(ctx.url)
-
         renderer.renderToString(context, (err, html) => {
             if (err) {
                 return handleError(err)
@@ -60,10 +66,11 @@ function render(ctx) {
     })
 }
 
+app.use(logger)
 app.use(serve(__dirname, '/dist'))
 
 router.get('*', render)
 app.use(router.routes()).use(router.allowedMethods())
-app.listen(3000)
+app.listen(8089)
 
 console.log('start server: localhost:3000')
