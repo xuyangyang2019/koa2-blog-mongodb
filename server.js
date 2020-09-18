@@ -2,12 +2,10 @@ const fs = require('fs')
 const path = require('path')
 // 导入koa
 const Koa = require('koa')
-// 日志中间件
-const Koa_Logger = require('koa-logger')
-const Moment = require("moment");
-const logger = Koa_Logger((str) => {
-    console.log(Moment().format('YYYY-MM-DD HH:mm:ss') + str)
-})
+const koaCompress = require('koa-compress')()
+const loggerMiddleware = require('./server/middlewares/loggerMiddleWare')()
+const staticMiddleWare = require('./server/middlewares/staticMiddleWare')
+
 // 解析POST请求
 const bodyParser = require('koa-bodyparser');
 // 路由中间件
@@ -67,13 +65,12 @@ function render(ctx) {
     })
 }
 
-app.use(logger)
+app.use(loggerMiddleware)
 
 // 生产环境下，静态文件是由部署在最前面的反向代理服务器（如Nginx）处理的，Node程序不需要处理静态文件。
 // 而在开发环境下，我们希望koa能顺带处理静态文件，否则，就必须手动配置一个反向代理服务器，这样会导致开发环境非常复杂。
 if (process.env.NODE_ENV === 'development') {
-    const serve = require('koa-static')
-    app.use(serve(__dirname, '/dist'))
+    app.use(staticMiddleWare('./dist'))
     // 原生实现
     // let staticFiles = require('./middlewares/static-files');
     // app.use(staticFiles('/static/', __dirname + '/static'));
@@ -87,4 +84,4 @@ router.get('*', render)
 app.use(router.routes()).use(router.allowedMethods())
 app.listen(8089)
 
-console.log('start server: localhost:3000')
+console.log('start server: localhost:8089')
