@@ -2,18 +2,18 @@ const fs = require('fs')
 const path = require('path')
 // 导入koa
 const Koa = require('koa')
+const bodyParser = require('koa-bodyparser');
 const koaCompress = require('koa-compress')()
+const KoaRouter = require('koa-router')
+
 const loggerMiddleware = require('./server/middlewares/loggerMiddleWare')()
 const errorMiddleware = require('./server/middlewares/errorMiddleware')
 const staticMiddleWare = require('./server/middlewares/staticMiddleWare')
 
-// 解析POST请求
-const bodyParser = require('koa-bodyparser');
-// 路由中间件
-const KoaRouter = require('koa-router')
-const { createBundleRenderer } = require('vue-server-renderer')
+// const vueKoaSSR = require('./server/vue.koa.ssr')
 
 const resolve = file => path.resolve(__dirname, file)
+const { createBundleRenderer } = require('vue-server-renderer')
 const app = new Koa()
 const router = new KoaRouter()
 const template = fs.readFileSync(resolve('./src/index-template.html'), 'utf-8')

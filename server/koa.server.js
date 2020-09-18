@@ -5,11 +5,10 @@
 const Koa = require('koa')
 const koaCompress = require('koa-compress')()
 
-const loggerMiddleware = require('koa-logger')()
-const staticMiddleWare = require('./middle/staticMiddleWare')
-const errorMiddleware = require('./middle/errorMiddleWare')
-const proxyMiddleWare = require('./middle/proxyMiddleWare')
-
+const loggerMiddleware = require('./middlewares/loggerMiddleWare')()
+const staticMiddleWare = require('./middlewares/staticMiddleWare')
+const errorMiddleware = require('./middlewares/errorMiddleWare')
+const proxyMiddleWare = require('./middlewares/proxyMiddleWare')
 const vueKoaSSR = require('./vue.koa.ssr')
 const currentIP = require('ip').address()
 
