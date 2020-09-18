@@ -4,6 +4,7 @@ const path = require('path')
 const Koa = require('koa')
 const koaCompress = require('koa-compress')()
 const loggerMiddleware = require('./server/middlewares/loggerMiddleWare')()
+const errorMiddleware = require('./server/middlewares/errorMiddleware')
 const staticMiddleWare = require('./server/middlewares/staticMiddleWare')
 
 // 解析POST请求
@@ -65,10 +66,18 @@ function render(ctx) {
     })
 }
 
+// 打印请求与响应 日志
 app.use(loggerMiddleware)
+
+// 压缩响应
+app.use(koaCompress)
+
+// 错误处理
+app.use(errorMiddleware)
 
 // 生产环境下，静态文件是由部署在最前面的反向代理服务器（如Nginx）处理的，Node程序不需要处理静态文件。
 // 而在开发环境下，我们希望koa能顺带处理静态文件，否则，就必须手动配置一个反向代理服务器，这样会导致开发环境非常复杂。
+// 静态资源中间件
 if (process.env.NODE_ENV === 'development') {
     app.use(staticMiddleWare('./dist'))
     // 原生实现
@@ -76,6 +85,9 @@ if (process.env.NODE_ENV === 'development') {
     // app.use(staticFiles('/static/', __dirname + '/static'));
     // app.use(staticFiles('/dist/', __dirname + '/dist'));
 }
+
+// vue ssr处理
+// vueKoaSSR(app, uri)
 
 // 使用ctx.body解析中间件
 app.use(bodyParser())
