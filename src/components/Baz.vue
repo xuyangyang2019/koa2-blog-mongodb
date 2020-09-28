@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>this is item</h1>
-    {{msg}}
+    <h1>this is home</h1>
+    {{ msg }}
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      msg: 'test item ?'
+      msg: 'test home ?'
     }
   }
 }
