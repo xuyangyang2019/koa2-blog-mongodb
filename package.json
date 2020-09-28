@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "webpack-dev-server",
+    "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "webpack --config config/webpack.client.config.js",
     "build:server": "webpack --config config/webpack.server.config.js"
   },
