@@ -1,9 +1,24 @@
 <template>
   <div id="app">
-    <h1>this is app</h1>
-    <router-link to="/home">home</router-link>
-    <router-link to="/item">item</router-link>
-    <router-view />
+    <router-link to="/bar">Goto Bar</router-link>
+    <router-link to="/foo">Goto Foo</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
+<script>
+export default {
+  beforeCreate() {
+    console.log('App.vue beforeCreate');
+  },
+  created() {
+    console.log('App.vue created');
+  },
+  beforeMount() {
+    console.log('App.vue beforeMount');
+  },
+  mounted() {
+    console.log('App.vue mounted');
+  }
+}
+</script>

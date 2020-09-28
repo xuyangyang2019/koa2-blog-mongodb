@@ -131,7 +131,7 @@ module.exports = function () {
         appVersion,
         favicon,
         filename: 'index.html',
-        template: path.join(process.cwd(), './src/index.template.html'),
+        template: path.join(process.cwd(), './src/index.ssr.html'),
         inject: !isProd,
       }),
       new FriendlyErrorsPlugin(),

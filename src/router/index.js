@@ -1,31 +1,27 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Bar from '../components/Bar.vue';
 
-import home from '../component/home.vue'
-import item from '../component/item.vue'
+Vue.use(Router);
 
-Vue.use(Router)
+function createRouter() {
+    const routes = [
+        {
+            path: '/bar',
+            component: Bar
+        },
+        {
+            path: '/foo',
+            component: () => import('../components/Foo.vue')   // 异步路由
+        }
+    ];
 
-export function createRouter() {
-    return new Router({
+    const router = new Router({
         mode: 'history',
-        fallback: false,
-        scrollBehavior: () => ({ y: 0 }),
-        routes: [
-            {
-                path: '/home',
-                name: 'home',
-                component: home
-            },
-            {
-                path: '/item',
-                name: 'item',
-                component: item
-            },
-            {
-                path: '/',
-                redirect: '/home'
-            }
-        ]
-    })
+        routes
+    });
+
+    return router;
 }
+
+export default createRouter;
