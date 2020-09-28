@@ -1,14 +1,15 @@
 /**
  * vue koa2 ssr中间件
- * Created by zdliuccit on 2018/7/6.
  */
+
 const fs = require('fs')
 const path = require('path')
-const LRU = require('lru-cache')
-const { createBundleRenderer } = require('vue-server-renderer')
 const isProd = process.env.NODE_ENV === 'production'
 const proxyConfig = require('./../app.config').proxy
+// Least recently use
+const LRU = require('lru-cache')
 const setUpDevServer = require('./setup.dev.server')
+const { createBundleRenderer } = require('vue-server-renderer')
 
 module.exports = function (app, uri) {
 
@@ -44,6 +45,7 @@ module.exports = function (app, uri) {
 
     let renderer
     if (isProd) {
+        console.log('生产环境')
         // prod mode
         const template = fs.readFileSync(resolve('dist/index.html'), 'utf-8')
         const bundle = require(resolve('dist/vue-ssr-server-bundle.json'))
@@ -53,6 +55,7 @@ module.exports = function (app, uri) {
             clientManifest
         })
     } else {
+        console.log('开发环境')
         // dev mode
         setUpDevServer(app, uri, (bundle, options) => {
             try {
@@ -60,9 +63,9 @@ module.exports = function (app, uri) {
             } catch (e) {
                 console.log('\nbundle error', e)
             }
-        }
-        )
+        })
     }
+
     app.use(async (ctx, next) => {
         if (!renderer) {
             ctx.type = 'html'
