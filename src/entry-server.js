@@ -21,6 +21,7 @@ export default context => {
                 return reject({ code: 404 })
             }
 
+            // 服务器端数据预取
             // 对所有匹配的路由组件调用 `asyncData()`
             Promise.all(matchedComponents.map(Component => {
                 if (Component.asyncData) {
