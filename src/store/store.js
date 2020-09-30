@@ -34,11 +34,12 @@ function createStore() {
         }
     })
 
+    // 运行环境不一定是浏览器，这里需要对window做判断，防止报错
+    // 如果有window.__INITIAL_STATE__属性，
+    // 说明服务器已经把所有初始化需要的异步数据都获取完成了，
+    // 要对store中的状态做一个替换，保证统一。
     if (typeof window !== 'undefined' && window.__INITIAL_STATE__) {
-        console.log('window.__INITIAL_STATE__', window.__INITIAL_STATE__)
         store.replaceState(window.__INITIAL_STATE__)
-    } else {
-        console.log('no browser')
     }
 
     return store
