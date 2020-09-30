@@ -20,36 +20,36 @@ import { sync } from 'vuex-router-sync'
 //     }
 // })
 
-// 当路由组件重用时，也应该调用 asyncData 函数
-Vue.mixin({
-    beforeRouteUpdate(to, from, next) {
-        const { asyncData } = this.$options
-        if (asyncData) {
-            asyncData({
-                store: this.$store,
-                route: to
-            }).then(next).catch(next)
-        } else {
-            next()
-        }
-    }
-})
+// // 当路由组件重用时，也应该调用 asyncData 函数
+// Vue.mixin({
+//     beforeRouteUpdate(to, from, next) {
+//         const { asyncData } = this.$options
+//         if (asyncData) {
+//             asyncData({
+//                 store: this.$store,
+//                 route: to
+//             }).then(next).catch(next)
+//         } else {
+//             next()
+//         }
+//     }
+// })
 
 export function createApp() {
-    // 创建 router 和 store 实例
-    const store = createStore()
-    const router = createRouter()
+  // 创建 router 和 store 实例
+  const store = createStore()
+  const router = createRouter()
 
-    // 同步路由状态(route state)到 store
-    sync(store, router)
+  // 同步路由状态(route state)到 store
+  sync(store, router)
 
-    // 创建应用程序实例，将 router 和 store 注入
-    const app = new Vue({
-        router,
-        store,
-        render: h => h(App)
-    })
+  // 创建应用程序实例，将 router 和 store 注入
+  const app = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  })
 
-    // 暴露 app, router 和 store。
-    return { app, store, router, App }
+  // 暴露 app, router 和 store。
+  return { app, store, router, App }
 }
