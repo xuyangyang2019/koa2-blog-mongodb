@@ -9,10 +9,11 @@ import { createApp } from './app.js'
 
 const { app } = createApp()
 
-// 而在客户端，在挂载到应用程序之前，store 就应该获取到状态
-// if (window && window.__INITIAL_STATE__) {
-//     store.replaceState(window.__INITIAL_STATE__)
-// }
+// 在挂载 (mount) 到客户端应用程序之前，需要获取到与服务器端应用程序完全相同的数据 
+// 否则，客户端应用程序会因为使用与服务器端应用程序不同的状态，然后导致混合失败。
+if (typeof window !== 'undefined' && window.__INITIAL_STATE__) {
+    store.replaceState(window.__INITIAL_STATE__)
+}
 
 // // 路由器必须要提前解析路由配置中的异步组件，才能正确地调用组件中可能存在的路由钩子
 // router.onReady(() => {
