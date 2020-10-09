@@ -7,6 +7,10 @@ Vue.use(Router)
 function createRouter() {
     const routes = [
         {
+            path: '/',
+            redirect:'/bar'
+        },
+        {
             path: '/bar',
             component: Bar
         },
