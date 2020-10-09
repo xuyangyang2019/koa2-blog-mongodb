@@ -52,7 +52,7 @@ backendRouter.get('/*', async (ctx, next) => {
 
         // vuex router demo
         let html = await renderer.renderToString(context)
-        console.log(html)
+        // console.log(html)
         ctx.type = 'html'
         ctx.status = 200
         ctx.body = html
