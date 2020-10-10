@@ -19,7 +19,7 @@ const backendRouter = new Router()
 // 使用serverBundle和clientManifest进行优化
 const serverBundle = require(path.resolve(__dirname, '../dist/vue-ssr-server-bundle.json'))
 const clientManifest = require(path.resolve(__dirname, '../dist/vue-ssr-client-manifest.json'))
-const template = fs.readFileSync(path.resolve(__dirname, '../dist/index.ssr.html'), 'utf-8')
+const template = fs.readFileSync(path.resolve(__dirname, '../src/index.ssr.html'), 'utf-8')
 
 const renderer = createBundleRenderer(serverBundle, {
     runInNewContext: false, // 推荐
@@ -28,7 +28,7 @@ const renderer = createBundleRenderer(serverBundle, {
 })
 
 // 解析静态资源
-// backendApp.use(serve(path.resolve(__dirname, '../dist')))
+backendApp.use(serve(path.resolve(__dirname, '../dist')))
 
 // 路由
 backendRouter.get('/*', async (ctx, next) => {

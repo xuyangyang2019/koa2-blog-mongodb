@@ -4,17 +4,14 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     mode: 'development',
-
     resolve: {
         extensions: ['.js', '.vue']
     },
-
     output: {
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/',
         filename: '[name].bundle.js'
     },
-
     module: {
         rules: [
             {
@@ -40,7 +37,6 @@ module.exports = {
             }
         ]
     },
-
     plugins: [
         new VueLoaderPlugin()
     ]
