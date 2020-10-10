@@ -21,7 +21,7 @@ const errorMiddleware = require('./middlewares/errorMiddleWare')
 const vueKoaSSR = require('./vue.koa.ssr')
 
 const currentIP = require('ip').address()
-const appConfig = require('./../app.config')
+const appConfig = require('../app.config')
 const uri = `http://${currentIP}:${appConfig.appPort}`
 
 // koa server

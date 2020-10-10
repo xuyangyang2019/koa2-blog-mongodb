@@ -4,7 +4,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const appConfig = require('./../app.config')
+const appConfig = require('../app.config')
 
 // this is a rewrite of VueLoaderPlugin to solve the compatibility with webpack5
 const vueLoaderPlugin = require('vue-loader/lib/plugin')

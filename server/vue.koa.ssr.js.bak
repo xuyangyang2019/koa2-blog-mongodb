@@ -5,10 +5,10 @@
 const fs = require('fs')
 const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
-const proxyConfig = require('./../app.config').proxy
+const proxyConfig = require('../app.config').proxy
 // Least recently use
 const LRU = require('lru-cache')
-const setUpDevServer = require('./setup.dev.server')
+const setUpDevServer = require('./setup.dev.server.js.bak')
 const { createBundleRenderer } = require('vue-server-renderer')
 
 module.exports = function (app, uri) {
