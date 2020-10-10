@@ -14,8 +14,10 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.5.3",
+    "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "moment": "^2.29.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.5.17",
