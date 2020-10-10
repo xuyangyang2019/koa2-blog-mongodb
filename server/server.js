@@ -3,12 +3,10 @@ const path = require('path')
 
 const Koa = require('koa')
 const Router = require('koa-router')
-const serve = require('koa-static')
-const { createBundleRenderer } = require('vue-server-renderer')
 
-// 后端Server
-const backendApp = new Koa()
-const backendRouter = new Router()
+// 生产环境
+const isProd = process.env.NODE_ENV === 'production'
+
 
 // server.bundle.js demo
 // const bundle = fs.readFileSync(path.resolve(__dirname, '../dist/server.bundle.js'), 'utf-8')
@@ -21,20 +19,50 @@ const serverBundle = require(path.resolve(__dirname, '../dist/vue-ssr-server-bun
 const clientManifest = require(path.resolve(__dirname, '../dist/vue-ssr-client-manifest.json'))
 const template = fs.readFileSync(path.resolve(__dirname, '../src/index.ssr.html'), 'utf-8')
 
+const { createBundleRenderer } = require('vue-server-renderer')
 const renderer = createBundleRenderer(serverBundle, {
     runInNewContext: false, // 推荐
     template: template, // （可选）页面模板
     clientManifest: clientManifest // （可选）客户端构建 manifest
 })
 
+// 后端Server 创建app实例
+const backendApp = new Koa()
+
 // 日志中间件
-const loggerMiddleware = require('./middlewares/loggerMiddleWare')()
-backendApp.use(loggerMiddleware)
+const Koa_Logger = require('koa-logger')
+const Moment = require("moment")
+backendApp.use(Koa_Logger((str) => {
+    console.log(Moment().format('YYYY-MM-DD HH:mm:ss') + str)
+}))
+
+// 数据压缩
+const KoaCompress = require('koa-compress')()
+backendApp.use(KoaCompress)
 
 // 解析静态资源
-backendApp.use(serve(path.resolve(__dirname, '../dist')))
+const Koa_Static = require("koa-static")
+backendApp.use(Koa_Static(path.resolve(__dirname, '../dist'), { maxAge: 30 * 24 * 60 * 60 * 1000, gzip: true }))
+
+// 解析POST请求
+// koa-bodyparser必须在router之前被注册到app对象上
+// koa-bodyparser中间件可以把koa2上下文的formData数据解析到ctx.request.body中
+const bodyParser = require('koa-bodyparser');
+// 使用ctx.body解析中间件
+backendApp.use(bodyParser())
+
+// rest中间件
+const rest = require('./middlewares/rest');
+backendApp.use(rest.restify());
+
+// ajax 跨域问题
+// jsonp
+const jsonp = require('koa-jsonp')
+// 使用中间件
+backendApp.use(jsonp())
 
 // 路由
+const backendRouter = new Router()
 backendRouter.get('/*', async (ctx, next) => {
     const context = { url: ctx.url }
     // 这里无需传入一个应用程序，因为在执行 bundle 时已经自动创建过。
