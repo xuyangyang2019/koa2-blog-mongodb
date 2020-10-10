@@ -27,12 +27,15 @@ const renderer = createBundleRenderer(serverBundle, {
     clientManifest: clientManifest // （可选）客户端构建 manifest
 })
 
+// 日志中间件
+const loggerMiddleware = require('./middlewares/loggerMiddleWare')()
+backendApp.use(loggerMiddleware)
+
 // 解析静态资源
 backendApp.use(serve(path.resolve(__dirname, '../dist')))
 
 // 路由
 backendRouter.get('/*', async (ctx, next) => {
-    console.log(ctx.url)
     const context = { url: ctx.url }
     // 这里无需传入一个应用程序，因为在执行 bundle 时已经自动创建过。
     // 现在我们的服务器与应用程序已经解耦！
@@ -52,7 +55,6 @@ backendRouter.get('/*', async (ctx, next) => {
 
         // vuex router demo
         let html = await renderer.renderToString(context)
-        // console.log(html)
         ctx.type = 'html'
         ctx.status = 200
         ctx.body = html
@@ -78,7 +80,6 @@ backendRouter.get('/*', async (ctx, next) => {
         // })
 
     } catch (err) {
-        console.error(err)
         ctx.status = 500
         ctx.body = '服务器内部错误'
     }
