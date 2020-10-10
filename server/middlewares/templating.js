@@ -1,5 +1,5 @@
 // 模版引擎入口
-const nunjucks = require('nunjucks');
+const nunjucks = require('nunjucks')
 
 /**
  * 创建Nunjucks的env对象
@@ -19,42 +19,42 @@ function createEnv(path, opts) {
         }), {
         autoescape: autoescape,
         throwOnUndefined: throwOnUndefined
-    });
+    })
 
     if (opts.filters) {
         for (var f in opts.filters) {
-            env.addFilter(f, opts.filters[f]);
+            env.addFilter(f, opts.filters[f])
         }
     }
 
-    return env;
+    return env
 }
 
 // async中间件的形式调用
 // function templating(path, opts) {
 //     // 创建Nunjucks的env对象:
-//     var env = createEnv(path, opts);
+//     var env = createEnv(path, opts)
 //     return async (ctx, next) => {
 //         // 给ctx绑定render函数:
 //         ctx.render = function (view, model) {
 //             // 把render后的内容赋值给response.body:
-//             ctx.response.body = env.render(view, Object.assign({}, ctx.state || {}, model || {}));
+//             ctx.response.body = env.render(view, Object.assign({}, ctx.state || {}, model || {}))
 //             // 设置Content-Type:
-//             ctx.response.type = 'text/html';
-//         };
+//             ctx.response.type = 'text/html'
+//         }
 //         // 继续处理请求:
-//         await next();
-//     };
+//         await next()
+//     }
 // }
 
 // 加载到app.context
 function templating(path, opts, app) {
-    let env = createEnv(path, opts);
+    let env = createEnv(path, opts)
     //app.context为ctx的原型
     app.context.render = function (view, model) {
-        this.response.body = env.render(view, Object.assign({}, this.state || {}, model || {}));
-        this.response.type = 'text/html';
+        this.response.body = env.render(view, Object.assign({}, this.state || {}, model || {}))
+        this.response.type = 'text/html'
     }
 }
 
-module.exports = templating;
+module.exports = templating
