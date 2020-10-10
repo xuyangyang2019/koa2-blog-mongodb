@@ -16,7 +16,7 @@ function createRouter() {
         },
         {
             path: '/foo',
-            component: () => import('../components/Foo.vue')   // 异步路由
+            component: () =>import(/* webpackChunkName: "foo" */ '../components/Foo.vue') // 异步路由
         }
     ]
 
