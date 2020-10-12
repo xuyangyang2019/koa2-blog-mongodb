@@ -47,13 +47,13 @@ backendApp.use(Koa_Static(path.resolve(__dirname, '../dist'), { maxAge: 30 * 24 
 // 解析POST请求
 // koa-bodyparser必须在router之前被注册到app对象上
 // koa-bodyparser中间件可以把koa2上下文的formData数据解析到ctx.request.body中
-const bodyParser = require('koa-bodyparser');
+const bodyParser = require('koa-bodyparser')
 // 使用ctx.body解析中间件
 backendApp.use(bodyParser())
 
 // rest中间件
-const rest = require('./middlewares/rest');
-backendApp.use(rest.restify());
+const rest = require('./middlewares/rest')
+backendApp.use(rest.restify())
 
 // ajax 跨域问题
 // jsonp
