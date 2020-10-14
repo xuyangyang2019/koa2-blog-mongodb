@@ -65,10 +65,10 @@ module.exports = function setupDevServer(app, uri, cb) {
         //     'vue-ssr-client-manifest.json'
         // ))
 
-        let filePath = path.join(clientConfig.output.path, 'index.html')
+        let filePath = path.join(clientConfig.output.path, 'index.ssr.html')
         if (fs.existsSync(filePath)) {
             // 读取内存模板
-            template = readFile(fs, 'index.html')
+            template = readFile(fs, 'index.ssr.html')
         }
         update()
     })

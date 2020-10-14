@@ -60,7 +60,7 @@ let renderer
 
 if (isProd) {
     // 生产环境,从打包好的文件夹读取bundle和manifest
-    const template = fs.readFileSync(resolve('src/index.ssr.html'), 'utf-8')
+    const template = fs.readFileSync(resolve('dist/index.ssr.html'), 'utf-8')
     const serverBundle = require(resolve('dist/vue-ssr-server-bundle.json'))
     const clientManifest = require(resolve('dist/vue-ssr-client-manifest.json'))
     renderer = createRenderer(serverBundle, {

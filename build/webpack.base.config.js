@@ -5,14 +5,13 @@
 const path = require('path')
 const webpack = require('webpack')
 const appConfig = require('../app.config')
-
 // this is a rewrite of VueLoaderPlugin to solve the compatibility with webpack5
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
-// 自动提取css文件
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin")
 
 // 该插件将为你生成一个 HTML5 文件， 其中包括使用 script 标签的 body 中的所有 webpack 包
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// 自动提取css文件
+const ExtractCssChunks = require("extract-css-chunks-webpack-plugin")
 // 识别某些类别的webpack错误，并清理，聚合和优先级，以提供更好的开发人员体验
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 // 用于优化\最小化CSS
@@ -20,8 +19,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // 区分大小写的路径
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 
+// 开发环境
 const isProd = process.env.NODE_ENV === 'production'
-
 // 版本号
 const appVersion = new Date().getTime()
 
@@ -127,11 +126,11 @@ module.exports = function () {
     plugins: [
       // 由于mac不区分大小写，linux区分大小写，可能导致mac上正常，在部署时出错，所以强制区分大小写
       new CaseSensitivePathsPlugin(),
-      // // 读取HTML模板文件，并输出HTML文件，开发环境实际输出到内存中
+      // 读取HTML模板文件，并输出HTML文件，开发环境实际输出到内存中
       new HtmlWebpackPlugin({
         appVersion,
         favicon,
-        filename: 'index.html',
+        filename: 'index.ssr.html',
         template: path.join(process.cwd(), './src/index.ssr.html'),
         inject: !isProd,
       }),
