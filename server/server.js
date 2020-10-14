@@ -175,23 +175,6 @@ backendApp.use(async (ctx, next) => {
 //         }
 //     })
 
-// backendRouter.get(["/", "/home", "/article", "/article/:articleList", "/article/:articleList/:id", "/life",
-//     "/life/:id", "/msgBoard", "/search/:searchKey", "/timeLine/:time", "/login_qq"], (req, res) => {
-//         const context = {
-//             title: 'mapBlog',
-//             url: req.url
-//         }
-//         renderer.renderToString(context, (err, html) => {
-//             const { title, meta } = context.meta.inject()
-//             if (err) {
-//                 res.status(500).end('Internal Server Error')
-//                 return
-//             }
-//             html = html.replace(/<title.*?<\/title>/g, title.text())
-//             html = html.replace(/<meta\s+.*?name="description".*?>/g, meta.text())
-//             res.end(html)
-//         })
-//     })
 //后端请求
 // backendApp.get(["/admin", "/admin/*", "/login"], (req, res) => {
 //     fs.readFile('../admin/dist/admin.html', 'utf-8', function (err, data) {
