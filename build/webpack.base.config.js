@@ -42,7 +42,8 @@ module.exports = function () {
       filename: '[name].[chunkhash:8].js',
       // 异步模块文件名
       chunkFilename: '[id].js',
-      publicPath: '/dist/'
+      // 项目中引用css，js，img等资源时候的一个基础路径
+      publicPath: isProd ? './' : '/dist/'
     },
     // 寻找模块时的一些缺省设置
     resolve: {
