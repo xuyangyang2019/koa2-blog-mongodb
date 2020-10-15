@@ -1,6 +1,6 @@
-const APIError = require('../middlewares/rest').APIError;
+// const APIError = require('../middlewares/rest').APIError;
 const userService = require('../services/userService')
-const adminService = require('../services/adminService')
+// const adminService = require('../services/adminService')
 
 
 module.exports = {
@@ -8,13 +8,13 @@ module.exports = {
     'GET /api/users': async (ctx, next) => {
         ctx.body = await userService.getAllUser()
     },
-    'GET /api/admins': async (ctx, next) => {
-        await adminService.getList(ctx)
-        // adminModel.find({}, {}, (err, docs) => {
-        //     console.log(docs)
-        // })
-        // ctx.body = 'admins'
-    },
+    // 'GET /api/admins': async (ctx, next) => {
+    //     await adminService.getList(ctx)
+    //     // adminModel.find({}, {}, (err, docs) => {
+    //     //     console.log(docs)
+    //     // })
+    //     // ctx.body = 'admins'
+    // },
     // // 获取
     // 'GET /api/todos': async (ctx, next) => {
     //     ctx.rest({
