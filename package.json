@@ -47,7 +47,7 @@
     "koa-webpack-hot-middleware": "^1.0.3",
     "nodemon": "^2.0.4",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
-    "postcss": "^7.0.5",
+    "postcss": "^7.0.36",
     "postcss-loader": "^3.0.0",
     "style-loader": "^0.23.0",
     "url-loader": "^1.1.1",
